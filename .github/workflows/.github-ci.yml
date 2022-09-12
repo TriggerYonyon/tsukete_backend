@@ -29,6 +29,7 @@ jobs:
 
       - name: native build with docker image
         run: |
+          cd ./core-system
           chmod +x ./gradlew
           ./gradlew build
   test:
@@ -55,5 +56,6 @@ jobs:
           java-version: '17'
       - name: run test
         run: |
+          cd ./core-system
           chmod +x ./gradlew
           ./gradlew test
