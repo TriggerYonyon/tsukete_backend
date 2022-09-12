@@ -22,7 +22,6 @@ class RuntimeExceptionHandler : ExceptionHandler<RuntimeException, HttpResponse<
      */
     override fun handle(request: HttpRequest<*>, exception: RuntimeException): HttpResponse<ErrorResponse> {
         val errorCode = ErrorCode.UNKNOWN_ERROR
-        println(exception.message)
         return HttpResponse.status<ErrorResponse?>(HttpStatus.INTERNAL_SERVER_ERROR) //
             .body(ErrorResponse(errorCode.code, errorCode.message))
     }
