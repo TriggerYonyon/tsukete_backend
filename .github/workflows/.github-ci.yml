@@ -31,7 +31,7 @@ jobs:
         run: |
           cd ./core-system
           chmod +x ./gradlew
-          ./gradlew build
+          ./gradlew build -x test
   test:
     runs-on: ubuntu-latest
     services:
