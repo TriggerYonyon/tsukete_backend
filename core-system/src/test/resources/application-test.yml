@@ -1,0 +1,11 @@
+datasources:
+  default:
+    driverClassName: org.postgresql.Driver
+    db-type: postgresql
+    jdbc-url: "jdbc:postgresql://localhost:55432/yonyon"
+    username: "yonyon"
+    password: "yonyon"
+flyway:
+  datasources:
+    default:
+      enabled: true

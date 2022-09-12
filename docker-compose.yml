@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    volumes:
+      - yonyon_volume:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+  db-test:
+    image: postgres:latest
+    ports:
+      - "55432:5432"
+    environment:
+      - POSTGRES_DB=yonyon
+      - POSTGRES_USER=yonyon
+      - POSTGRES_PASSWORD=yonyon
+  dynamodb:
+    build:
+      context: .
+      dockerfile: ./dynamodb/Dockerfile
+    container_name: dynamodb
+    ports:
+      - "8000:8000"
+    command: -jar DynamoDBLocal.jar -dbPath /data -sharedDb
+    volumes:
+      - ./dynamodb/data:/data
+  dynamodb-admin:
+    image: aaronshaf/dynamodb-admin
+    container_name: dynamodb-admin
+    ports:
+      - "8001:8001"
+    environment:
+      - DYNAMO_ENDPOINT=dynamodb:8000
+    depends_on:
+      - dynamodb
+volumes:
+  yonyon_volume:
+  yonyon_dynamo_db:
