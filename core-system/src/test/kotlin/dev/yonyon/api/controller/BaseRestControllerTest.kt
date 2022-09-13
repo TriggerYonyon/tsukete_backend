@@ -2,8 +2,11 @@ package dev.yonyon.api.controller
 
 import dev.yonyon.domain.model.UserModel
 import dev.yonyon.util.AuthUtil
+import io.micronaut.http.HttpRequest
 import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.annotation.Client
+import io.micronaut.security.authentication.UsernamePasswordCredentials
+import io.micronaut.security.token.jwt.render.BearerAccessRefreshToken
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
 import jakarta.inject.Inject
 import org.junit.jupiter.api.AfterEach
@@ -54,5 +57,12 @@ open class BaseRestControllerTest {
         connection.prepareStatement("TRUNCATE sheets CASCADE ").execute()
     }
 
+    fun login(): String {
+        val credentials = UsernamePasswordCredentials(user.email, "test")
+        val request = HttpRequest.POST("/api/login", credentials)
+        val response = client.toBlocking().exchange(request, BearerAccessRefreshToken::class.java)
+        val body = response.body.get()
+        return body.accessToken
+    }
 
 }
