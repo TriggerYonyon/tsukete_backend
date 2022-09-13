@@ -47,6 +47,11 @@ dependencies {
     // bcrypt
     implementation("org.springframework.security:spring-security-web:5.7.3")
 
+    // aws
+    implementation("software.amazon.awssdk:s3:2.17.272")
+    implementation("software.amazon.awssdk:dynamodb:2.17.272")
+    implementation("software.amazon.awssdk:sqs:2.17.272")
+
     // other
     implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")

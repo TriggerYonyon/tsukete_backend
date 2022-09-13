@@ -12,6 +12,6 @@ CREATE TABLE IF NOT EXISTS shops
     has_parking   BOOLEAN                  DEFAULT FALSE             NOT NULL,
     non_smoking   BOOLEAN                  DEFAULT TRUE              NOT NULL,
     image_url     VARCHAR(255)                                       NOT NULL,
-    registerer_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL
+    registered_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
