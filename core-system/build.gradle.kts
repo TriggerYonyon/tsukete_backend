@@ -12,6 +12,7 @@ version = "0.1"
 group = "dev.yonyon"
 
 val kotlinVersion=project.properties.get("kotlinVersion")
+val exposedVersion = "0.39.2"
 repositories {
     mavenCentral()
 }
@@ -37,10 +38,14 @@ dependencies {
     implementation("io.micronaut.openapi:micronaut-openapi")
 
     // exposed
-    implementation("org.jetbrains.exposed", "exposed-core", "0.39.1")
-    implementation("org.jetbrains.exposed", "exposed-dao", "0.39.1")
-    implementation("org.jetbrains.exposed", "exposed-jdbc", "0.39.1")
+    implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-java-time:$exposedVersion")
     implementation("org.postgresql:postgresql:42.5.0")
+
+    // bcrypt
+    implementation("org.springframework.security:spring-security-web:5.7.3")
 
     // other
     implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")

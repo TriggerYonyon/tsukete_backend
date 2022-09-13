@@ -8,7 +8,7 @@ micronaut:
         signatures:
           secret:
             generator:
-              secret: '"${JET_SIGNATURE_SECRET:devSecret}"'
+              secret: '"${JET_SIGNATURE_SECRET:ThisSecretLengthMustBeAtLeast256Bits}"'
               jws-algorithm: HS256
         generator:
           access-token:
@@ -18,7 +18,11 @@ micronaut:
       pattern: /swagger/**
     - access: isAnonymous()
       pattern: /swagger-ui/**
-    enabled: false
+    enabled: true
+    endpoints:
+      login:
+        enabled: true
+        path: "/api/login"
   router:
     static-resources:
       swagger:
