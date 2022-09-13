@@ -1,3 +1,4 @@
+[![CI](https://github.com/TriggerYonyon/tsukete_backend/actions/workflows/.github-ci.yml/badge.svg)](https://github.com/TriggerYonyon/tsukete_backend/actions/workflows/.github-ci.yml)
 # Tukete core-system
 
 ---
