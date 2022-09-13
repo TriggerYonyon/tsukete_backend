@@ -4,11 +4,11 @@ import dev.yonyon.enums.PrefectureEnum
 import dev.yonyon.enums.SheetTypeEnum
 import dev.yonyon.exception.ErrorCode
 import dev.yonyon.exception.UnexpectedException
-import dev.yonyon.factory.DbClientFactory
 import dev.yonyon.infrastructure.table.SheetTable
 import dev.yonyon.infrastructure.table.ShopTable
 import io.micronaut.core.annotation.Introspected
 import jakarta.inject.Singleton
+import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.StdOutSqlLogger
 import org.jetbrains.exposed.sql.addLogger
 import org.jetbrains.exposed.sql.selectAll
@@ -21,7 +21,7 @@ import java.util.*
  * 店舗クエリサービス
  */
 @Singleton
-class ShopQueryService(private val dbClientFactory: DbClientFactory) {
+class ShopQueryService(private val database: Database) {
 
     /**
      * 店舗リストを取得
@@ -29,7 +29,6 @@ class ShopQueryService(private val dbClientFactory: DbClientFactory) {
      * @return 店舗リスト
      */
     fun getShopsWithSheets(): List<ShopWithSheetsResult> {
-        dbClientFactory.getDbClient()
         val shopWithSheetsResults = transaction {
             addLogger(StdOutSqlLogger)
             ShopTable.leftJoin(SheetTable) //

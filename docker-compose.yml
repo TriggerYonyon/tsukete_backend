@@ -38,6 +38,17 @@ services:
       - DYNAMO_ENDPOINT=dynamodb:8000
     depends_on:
       - dynamodb
+  elastic-mq:
+    build:
+      context: .
+      dockerfile: ./elasticmq/DockerFIle
+    ports:
+      - "9324:9324"
+      - "9325:9325"
+    volumes:
+      - type: bind
+        source: ./elasticmq/custom.conf
+        target: /opt/elasticmq.conf
 volumes:
   yonyon_volume:
   yonyon_dynamo_db:

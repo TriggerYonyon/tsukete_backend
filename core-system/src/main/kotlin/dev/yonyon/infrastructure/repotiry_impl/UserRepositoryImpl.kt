@@ -2,9 +2,9 @@ package dev.yonyon.infrastructure.repotiry_impl
 
 import dev.yonyon.domain.model.UserModel
 import dev.yonyon.domain.repository.UserRepository
-import dev.yonyon.factory.DbClientFactory
 import dev.yonyon.infrastructure.table.UserTable
-import jakarta.inject.Singleton
+import io.micronaut.context.annotation.Infrastructure
+import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.StdOutSqlLogger
 import org.jetbrains.exposed.sql.addLogger
 import org.jetbrains.exposed.sql.select
@@ -14,8 +14,8 @@ import java.time.ZoneOffset
 /**
  * ユーザーリポジトリ
  */
-@Singleton
-class UserRepositoryImpl(private val dbClientFactory: DbClientFactory) : UserRepository {
+@Infrastructure
+class UserRepositoryImpl(private val database: Database) : UserRepository {
 
     /**
      * メールアドレスからユーザーを取得
@@ -24,7 +24,6 @@ class UserRepositoryImpl(private val dbClientFactory: DbClientFactory) : UserRep
      * @return ユーザー
      */
     override fun findByEmail(email: String): UserModel? {
-        dbClientFactory.getDbClient()
         val user = transaction {
             addLogger(StdOutSqlLogger)
             UserTable.select {

@@ -2,11 +2,11 @@ package dev.yonyon.application.query_service
 
 import dev.yonyon.exception.ErrorCode
 import dev.yonyon.exception.NotFoundException
-import dev.yonyon.factory.DbClientFactory
 import dev.yonyon.infrastructure.table.UserTable
 import io.micronaut.core.annotation.Introspected
 import io.micronaut.security.authentication.Authentication
 import jakarta.inject.Singleton
+import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
 import java.time.OffsetDateTime
@@ -17,7 +17,7 @@ import java.util.*
  * ユーザークエリサービス
  */
 @Singleton
-class UserQueryService(private val dbClientFactory: DbClientFactory) {
+class UserQueryService(private val database: Database) {
 
     /**
      * ユーザー情報を取得
@@ -27,7 +27,6 @@ class UserQueryService(private val dbClientFactory: DbClientFactory) {
      */
     fun getUserInfo(authentication: Authentication): UserInfoResult {
         val userId = UUID.fromString(authentication.name)
-        dbClientFactory.getDbClient()
         val result = transaction {
             UserTable.select {
                 UserTable.id eq userId
