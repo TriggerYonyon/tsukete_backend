@@ -14,10 +14,10 @@ micronaut:
           access-token:
             expiration: 604800
     intercept-url-map:
-    - access: isAnonymous()
-      pattern: /swagger/**
-    - access: isAnonymous()
-      pattern: /swagger-ui/**
+      - access: isAnonymous()
+        pattern: /swagger/**
+      - access: isAnonymous()
+        pattern: /swagger-ui/**
     enabled: true
     endpoints:
       login:
@@ -49,3 +49,6 @@ netty:
   default:
     allocator:
       max-order: 3
+jackson:
+  serialization:
+    writeDatesAsTimestamps: false
