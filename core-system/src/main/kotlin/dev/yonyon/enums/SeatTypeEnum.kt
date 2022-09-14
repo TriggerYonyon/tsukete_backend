@@ -1,6 +1,6 @@
 package dev.yonyon.enums
 
-enum class SheetTypeEnum(val id: Int, val type: String) {
+enum class SeatTypeEnum(val id: Int, val type: String) {
 
     /**
      * テーブル
@@ -13,7 +13,7 @@ enum class SheetTypeEnum(val id: Int, val type: String) {
     COUNTER(1, "カウンター");
 
     companion object {
-        fun findById(id: Int): SheetTypeEnum? {
+        fun findById(id: Int): SeatTypeEnum? {
             return values().firstOrNull { it.id == id }
         }
     }

@@ -1,29 +1,29 @@
 package dev.yonyon.domain.domain_service
 
-import dev.yonyon.domain.event.SheetUsedEvent
+import dev.yonyon.domain.event.SeatUsedEvent
 import dev.yonyon.domain.repository.EventRepository
 import jakarta.inject.Singleton
 import java.util.*
 
 @Singleton
-class SheetUsedEventDomainService(
+class SeatUsedEventDomainService(
     private val eventRepository: EventRepository
 ) {
-    fun save(sheetUsedEvent: SheetUsedEvent): Boolean {
-        if (!checkConsistency(sheetUsedEvent.sheetId, sheetUsedEvent.trackingId, sheetUsedEvent.isUsed)) {
+    fun save(seatUsedEvent: SeatUsedEvent): Boolean {
+        if (!checkConsistency(seatUsedEvent.seatId, seatUsedEvent.trackingId, seatUsedEvent.isUsed)) {
             return false
         }
-        eventRepository.saveSheetUsedEvent(sheetUsedEvent)
-        createSnapshot(sheetUsedEvent.sheetId, sheetUsedEvent.trackingId, sheetUsedEvent.isUsed)
+        eventRepository.saveSeatUsedEvent(seatUsedEvent)
+        createSnapshot(seatUsedEvent.seatId, seatUsedEvent.trackingId, seatUsedEvent.isUsed)
         return true
     }
 
     private fun createSnapshot(sheetId: UUID, trackingId: UUID, isUsed: Boolean) {
-        eventRepository.saveSheetSnapshot(sheetId, trackingId, isUsed)
+        eventRepository.saveSeatSnapshot(sheetId, trackingId, isUsed)
     }
 
     private fun checkConsistency(sheetId: UUID, trackingId: UUID, isUsed: Boolean): Boolean {
-        val sheetSnapshot = eventRepository.getSheetSnapshot(sheetId)
+        val sheetSnapshot = eventRepository.getSeatSnapshot(sheetId)
         if (!sheetSnapshot.containsKey("isUsed")) {
             return true
         }

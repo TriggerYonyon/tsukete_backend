@@ -22,13 +22,13 @@ class ShopRestControllerTest : BaseRestControllerTest() {
         ).execute()
         connection.prepareStatement(
             """
-                INSERT INTO public.sheets (id, shop_id, type, capacity, has_outlet, is_near_air_conditioner, is_used, registered_at) 
+                INSERT INTO public.seats (id, shop_id, type, capacity, has_outlet, is_near_air_conditioner, is_used, registered_at) 
                     VALUES ('65f20e20-46e7-48af-8995-b9e7bcd6f693', 'c323658e-8e15-45ea-b3db-88103d27aae2', 0, 5, true, true, false, '2022-09-12 18:39:46.613012 +00:00')
             """.trimIndent()
         ).execute()
         connection.prepareStatement(
             """
-                INSERT INTO public.sheets (id, shop_id, type, capacity, has_outlet, is_near_air_conditioner, is_used, registered_at) 
+                INSERT INTO public.seats (id, shop_id, type, capacity, has_outlet, is_near_air_conditioner, is_used, registered_at) 
                     VALUES ('483d14ad-28af-4a5c-8338-e62c134fccf5', 'c323658e-8e15-45ea-b3db-88103d27aae2', 1, 10, false, false, true, '2022-09-12 18:40:09.028528 +00:00')
             """.trimIndent()
         ).execute()
@@ -41,7 +41,7 @@ class ShopRestControllerTest : BaseRestControllerTest() {
         val body = response.body.get()
 
         Assertions.assertEquals(1, body.size)
-        Assertions.assertEquals(2, body[0].sheets.size)
+        Assertions.assertEquals(2, body[0].seats.size)
     }
 
 }

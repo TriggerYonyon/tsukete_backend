@@ -5,7 +5,7 @@ import org.jetbrains.exposed.dao.id.UUIDTable
 import org.jetbrains.exposed.sql.javatime.datetime
 
 @Introspected
-object SheetTable : UUIDTable("sheets") {
+object SeatTable : UUIDTable("seats") {
     val shopId = reference("shop_id", ShopTable)
 
     val type = integer("type")

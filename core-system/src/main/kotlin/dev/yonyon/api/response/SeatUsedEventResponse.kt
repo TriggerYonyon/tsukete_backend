@@ -4,6 +4,6 @@ import io.micronaut.core.annotation.Introspected
 import java.util.*
 
 @Introspected
-data class SheetUsedEventResponse(
+data class SeatUsedEventResponse(
     val trackingId: UUID
 )

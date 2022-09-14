@@ -3,13 +3,13 @@ package dev.yonyon.domain.event
 import java.time.OffsetDateTime
 import java.util.*
 
-class SheetUsedEvent(
+class SeatUsedEvent(
 
     val id: UUID,
 
     val trackingId: UUID,
 
-    val sheetId: UUID,
+    val seatId: UUID,
 
     val isUsed: Boolean,
 
