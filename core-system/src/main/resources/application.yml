@@ -52,3 +52,11 @@ netty:
 jackson:
   serialization:
     writeDatesAsTimestamps: false
+aws:
+  accessKeyId: "${AWS_ACCESS_KEY_ID:developAccessKeyId}"
+  secretAccessKey: "${AWS_SECRET_ACCESS_KEY:developSecretAccessKey}"
+  dynamoDB:
+    endpoint: "${AWS_DYNAMODB_ENDPOINT}"
+  sqs:
+    endpoint: "${AWS_SQS_ENDPOINT}"
+

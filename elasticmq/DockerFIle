@@ -1,0 +1,2 @@
+FROM softwaremill/elasticmq:latest
+
