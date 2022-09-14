@@ -8,7 +8,7 @@ interface EventRepository {
 
     fun saveSheetUsedEvent(event: SheetUsedEvent)
 
-    fun saveSheetSnapshot(sheetId: UUID, isUsed: Boolean)
+    fun saveSheetSnapshot(sheetId: UUID, trackingId: UUID, isUsed: Boolean)
 
     fun getSheetSnapshot(sheetId: UUID): MutableMap<String, AttributeValue>
 

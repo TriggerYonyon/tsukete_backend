@@ -25,13 +25,17 @@ class EventRepositoryImpl(private val dynamoDbClient: DynamoDbClient) : EventRep
         dynamoDbClient.putItem(request)
     }
 
-    override fun saveSheetSnapshot(sheetId: UUID, isUsed: Boolean) {
+    override fun saveSheetSnapshot(sheetId: UUID, trackingId: UUID, isUsed: Boolean) {
         val itemKey = mutableMapOf<String, AttributeValue>()
         itemKey["id"] = AttributeValue.fromS(sheetId.toString())
 
         val updatedItems = mutableMapOf<String, AttributeValueUpdate>()
         updatedItems["isUsed"] = AttributeValueUpdate.builder() //
             .value(AttributeValue.fromBool(isUsed)) //
+            .action(AttributeAction.PUT) //
+            .build()
+        updatedItems["trackingId"] = AttributeValueUpdate.builder() //
+            .value(AttributeValue.fromS(trackingId.toString())) //
             .action(AttributeAction.PUT) //
             .build()
 

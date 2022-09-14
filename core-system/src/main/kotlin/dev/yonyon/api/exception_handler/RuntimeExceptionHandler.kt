@@ -21,7 +21,6 @@ class RuntimeExceptionHandler : ExceptionHandler<RuntimeException, HttpResponse<
      * RuntimeExceptionが発生した場合は500エラー
      */
     override fun handle(request: HttpRequest<*>, exception: RuntimeException): HttpResponse<ErrorResponse> {
-        println(exception.message)
         val errorCode = ErrorCode.UNKNOWN_ERROR
         return HttpResponse.status<ErrorResponse?>(HttpStatus.INTERNAL_SERVER_ERROR) //
             .body(ErrorResponse(errorCode.code, errorCode.message))
