@@ -15,7 +15,7 @@ import io.swagger.v3.oas.annotations.tags.Tag
 @Tag(name = "Shop")
 @SecurityRequirement(name = "BearerAuth")
 @Controller("/api/shops")
-@Secured(SecurityRule.IS_AUTHENTICATED)
+@Secured(SecurityRule.IS_ANONYMOUS)
 class ShopRestController(private val shopQueryService: ShopQueryService) {
 
     /**
