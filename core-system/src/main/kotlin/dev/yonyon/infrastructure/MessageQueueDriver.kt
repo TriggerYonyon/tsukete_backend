@@ -4,7 +4,6 @@ import dev.yonyon.configuration.AwsConfiguration
 import io.micronaut.context.annotation.Infrastructure
 import software.amazon.awssdk.services.sqs.SqsClient
 import software.amazon.awssdk.services.sqs.model.SendMessageRequest
-import java.util.UUID
 
 @Infrastructure
 class MessageQueueDriver(
@@ -16,8 +15,7 @@ class MessageQueueDriver(
         val request = SendMessageRequest.builder() //
             .queueUrl(awsConfiguration.sqsEndpoint) //
             .messageBody(message) //
-            .messageGroupId(UUID.randomUUID().toString()) //
-            .messageDeduplicationId(UUID.randomUUID().toString()) //
+            .messageGroupId("seat-used-event") //
             .build()
 
         sqsClient.sendMessage(request)

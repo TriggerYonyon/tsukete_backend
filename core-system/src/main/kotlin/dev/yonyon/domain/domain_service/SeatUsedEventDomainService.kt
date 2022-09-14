@@ -28,7 +28,7 @@ class SeatUsedEventDomainService(
             return true
         }
 
-        if (sheetSnapshot["trackingId"]!!.s() != trackingId.toString()) {
+        if (!isUsed && sheetSnapshot["trackingId"]!!.s() != trackingId.toString()) {
             return false
         }
 
