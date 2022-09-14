@@ -1,6 +1,6 @@
 package dev.yonyon.infrastructure.repotiry_impl
 
-import dev.yonyon.domain.event.SheetUsedEvent
+import dev.yonyon.domain.event.SeatUsedEvent
 import dev.yonyon.domain.repository.EventRepository
 import io.micronaut.context.annotation.Infrastructure
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient
@@ -10,24 +10,24 @@ import java.util.*
 @Infrastructure
 class EventRepositoryImpl(private val dynamoDbClient: DynamoDbClient) : EventRepository {
 
-    override fun saveSheetUsedEvent(event: SheetUsedEvent) {
+    override fun saveSeatUsedEvent(event: SeatUsedEvent) {
         val items = mutableMapOf<String, AttributeValue>()
         items["id"] = AttributeValue.fromS(event.id.toString())
         items["trackingId"] = AttributeValue.fromS(event.trackingId.toString())
-        items["sheetId"] = AttributeValue.fromS(event.sheetId.toString())
+        items["seatId"] = AttributeValue.fromS(event.seatId.toString())
         items["isUsed"] = AttributeValue.fromBool(event.isUsed)
         items["timeStump"] = AttributeValue.fromS(event.timeStump.toString())
 
         val request = PutItemRequest.builder() //
             .item(items) //
-            .tableName("SheetUsedEvent") //
+            .tableName("SeatUsedEvent") //
             .build()
         dynamoDbClient.putItem(request)
     }
 
-    override fun saveSheetSnapshot(sheetId: UUID, trackingId: UUID, isUsed: Boolean) {
+    override fun saveSeatSnapshot(seatId: UUID, trackingId: UUID, isUsed: Boolean) {
         val itemKey = mutableMapOf<String, AttributeValue>()
-        itemKey["id"] = AttributeValue.fromS(sheetId.toString())
+        itemKey["id"] = AttributeValue.fromS(seatId.toString())
 
         val updatedItems = mutableMapOf<String, AttributeValueUpdate>()
         updatedItems["isUsed"] = AttributeValueUpdate.builder() //
@@ -40,7 +40,7 @@ class EventRepositoryImpl(private val dynamoDbClient: DynamoDbClient) : EventRep
             .build()
 
         val request = UpdateItemRequest.builder() //
-            .tableName("SheetSnapshot") //
+            .tableName("SeatSnapshot") //
             .key(itemKey) //
             .attributeUpdates(updatedItems) //
             .build()
@@ -48,12 +48,12 @@ class EventRepositoryImpl(private val dynamoDbClient: DynamoDbClient) : EventRep
         dynamoDbClient.updateItem(request)
     }
 
-    override fun getSheetSnapshot(sheetId: UUID): MutableMap<String, AttributeValue> {
+    override fun getSeatSnapshot(seatId: UUID): MutableMap<String, AttributeValue> {
         val keyToGet = mutableMapOf<String, AttributeValue>()
-        keyToGet["id"] = AttributeValue.fromS(sheetId.toString())
+        keyToGet["id"] = AttributeValue.fromS(seatId.toString())
 
         val request = GetItemRequest.builder() //
-            .tableName("SheetSnapshot") //
+            .tableName("SeatSnapshot") //
             .key(keyToGet) //
             .build()
 

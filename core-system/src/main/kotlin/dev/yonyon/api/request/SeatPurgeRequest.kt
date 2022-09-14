@@ -4,6 +4,6 @@ import io.micronaut.core.annotation.Introspected
 import java.util.*
 
 @Introspected
-data class SheetPurgeRequest(
+data class SeatPurgeRequest(
     val trackingId: UUID
 )

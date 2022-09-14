@@ -54,7 +54,7 @@ open class BaseRestControllerTest {
     fun cleanup() {
         connection.prepareStatement("TRUNCATE users CASCADE ").execute()
         connection.prepareStatement("TRUNCATE shops CASCADE ").execute()
-        connection.prepareStatement("TRUNCATE sheets CASCADE ").execute()
+        connection.prepareStatement("TRUNCATE seats CASCADE ").execute()
     }
 
     fun login(): String {

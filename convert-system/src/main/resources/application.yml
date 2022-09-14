@@ -1,0 +1,23 @@
+micronaut:
+  application:
+    name: convertSystem
+  server:
+    port: 8081
+datasources:
+  default:
+    driverClassName: org.postgresql.Driver
+    db-type: postgresql
+    jdbc-url: "${POSTGRES_URL}"
+    username: "${POSTGRES_USER}"
+    password: "${POSTGRES_PASSWORD}"
+netty:
+  default:
+    allocator:
+      max-order: 3
+aws:
+  accessKeyId: "${AWS_ACCESS_KEY_ID:developAccessKeyId}"
+  secretAccessKey: "${AWS_SECRET_ACCESS_KEY:developSecretAccessKey}"
+  dynamoDB:
+    endpoint: "${AWS_DYNAMODB_ENDPOINT}"
+  sqs:
+    endpoint: "${AWS_SQS_ENDPOINT}"

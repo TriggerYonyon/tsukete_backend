@@ -1,10 +1,10 @@
 package dev.yonyon.application.query_service
 
 import dev.yonyon.enums.PrefectureEnum
-import dev.yonyon.enums.SheetTypeEnum
+import dev.yonyon.enums.SeatTypeEnum
 import dev.yonyon.exception.ErrorCode
 import dev.yonyon.exception.UnexpectedException
-import dev.yonyon.infrastructure.table.SheetTable
+import dev.yonyon.infrastructure.table.SeatTable
 import dev.yonyon.infrastructure.table.ShopTable
 import io.micronaut.core.annotation.Introspected
 import jakarta.inject.Singleton
@@ -31,7 +31,7 @@ class ShopQueryService(private val database: Database) {
     fun getShopsWithSheets(): List<ShopWithSheetsResult> {
         val shopWithSheetsResults = transaction {
             addLogger(StdOutSqlLogger)
-            ShopTable.leftJoin(SheetTable) //
+            ShopTable.leftJoin(SeatTable) //
                 .selectAll()//
                 .groupBy(
                     {
@@ -50,19 +50,19 @@ class ShopQueryService(private val database: Database) {
                         )
                     },
                     {
-                        SheetResultDto(
-                            id = it[SheetTable.id].value,
-                            type = SheetTypeEnum.findById(it[SheetTable.type])?.type
+                        SeatResultDto(
+                            id = it[SeatTable.id].value,
+                            type = SeatTypeEnum.findById(it[SeatTable.type])?.type
                                 ?: throw UnexpectedException(ErrorCode.UNEXPECTED_ERROR),
-                            capacity = it[SheetTable.capacity],
-                            hasOutlet = it[SheetTable.hasOutlet],
-                            isNearAirConditioner = it[SheetTable.isNearAirConditioner],
-                            isUsed = it[SheetTable.isUsed],
-                            registeredAt = it[SheetTable.registeredAt].atOffset(ZoneOffset.UTC)
+                            capacity = it[SeatTable.capacity],
+                            hasOutlet = it[SeatTable.hasOutlet],
+                            isNearAirConditioner = it[SeatTable.isNearAirConditioner],
+                            isUsed = it[SeatTable.isUsed],
+                            registeredAt = it[SeatTable.registeredAt].atOffset(ZoneOffset.UTC)
                         )
                     },
-                ).map { (shopResultDto, sheets) ->
-                    ShopWithSheetsResult(shopResultDto, sheets)
+                ).map { (shopResultDto, seats) ->
+                    ShopWithSheetsResult(shopResultDto, seats)
                 }
         }
 
@@ -83,10 +83,10 @@ data class ShopWithSheetsResult(
     val hasParking: Boolean,
     val nonSmoking: Boolean,
     val imageUrl: String,
-    val sheets: List<SheetResultDto>,
+    val seats: List<SeatResultDto>,
     val registeredAt: OffsetDateTime
 ) {
-    constructor(shopResultDto: ShopResultDto, sheets: List<SheetResultDto>) : this(
+    constructor(shopResultDto: ShopResultDto, seats: List<SeatResultDto>) : this(
         id = shopResultDto.id,
         name = shopResultDto.name,
         zipcode = shopResultDto.zipcode,
@@ -98,7 +98,7 @@ data class ShopWithSheetsResult(
         hasParking = shopResultDto.hasParking,
         nonSmoking = shopResultDto.nonSmoking,
         imageUrl = shopResultDto.imageUrl,
-        sheets = sheets,
+        seats = seats,
         registeredAt = shopResultDto.registeredAt
     )
 }
@@ -119,7 +119,7 @@ data class ShopResultDto(
 )
 
 @Introspected
-data class SheetResultDto(
+data class SeatResultDto(
     val id: UUID,
     val type: String,
     val capacity: Int,
