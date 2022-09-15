@@ -28,7 +28,7 @@ class MessageQueueDriverImpl(
         }
 
         val deleteRequest = DeleteMessageRequest.builder() //
-            .queueUrl(awsConfiguration.sqsEndpoint) //
+            .queueUrl(awsConfiguration.sqsQueueUrl) //
             .receiptHandle(response.messages()[0].receiptHandle()) //
             .build()
         sqsClient.deleteMessage(deleteRequest)
