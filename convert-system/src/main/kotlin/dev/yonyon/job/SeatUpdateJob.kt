@@ -7,7 +7,7 @@ import jakarta.inject.Singleton
 @Singleton
 class SeatUpdateJob(private val seatService: SeatService) {
 
-    @Scheduled(fixedDelay = "10s")
+    @Scheduled(fixedDelay = "10s", initialDelay = "60s")
     fun executeEverytime() {
         seatService.updateIsUsed()
     }
