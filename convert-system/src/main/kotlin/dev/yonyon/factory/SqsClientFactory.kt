@@ -15,7 +15,7 @@ class SqsClientFactory(private val awsConfiguration: AwsConfiguration) {
     @Singleton
     fun getSqsClient(): SqsClient {
         return SqsClient.builder() //
-            .endpointOverride(URI("http://localhost:9324")) //
+            .endpointOverride(URI(awsConfiguration.sqsEndpoint)) //
             .region(Region.AP_NORTHEAST_1)
             .credentialsProvider(
                 StaticCredentialsProvider.create(

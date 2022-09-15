@@ -59,4 +59,5 @@ aws:
     endpoint: "${AWS_DYNAMODB_ENDPOINT}"
   sqs:
     endpoint: "${AWS_SQS_ENDPOINT}"
+    queueUrl: "${AWS_SQS_QUEUE_URL}"
 
