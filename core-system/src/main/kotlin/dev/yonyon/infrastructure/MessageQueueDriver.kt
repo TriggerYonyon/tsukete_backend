@@ -13,7 +13,7 @@ class MessageQueueDriver(
 
     fun sendMessage(message: String) {
         val request = SendMessageRequest.builder() //
-            .queueUrl(awsConfiguration.sqsEndpoint) //
+            .queueUrl(awsConfiguration.sqsQueueUrl) //
             .messageBody(message) //
             .messageGroupId("seat-used-event") //
             .build()

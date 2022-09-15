@@ -15,7 +15,7 @@ class MessageQueueDriverImpl(
 
     override fun receiveMessage(): String? {
         val receiveRequest = ReceiveMessageRequest.builder() //
-            .queueUrl(awsConfiguration.sqsEndpoint) //
+            .queueUrl(awsConfiguration.sqsQueueUrl) //
             .maxNumberOfMessages(1) //
             .build()
 

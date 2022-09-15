@@ -15,5 +15,8 @@ class AwsConfiguration(
     val dynamoDBEndpoint: String,
 
     @Property(name = "aws.sqs.endpoint")
-    val sqsEndpoint: String
+    val sqsEndpoint: String,
+
+    @Property(name = "aws.sqs.queueUrl")
+    val sqsQueueUrl: String
 )
