@@ -8,6 +8,7 @@ import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Produces
 import io.micronaut.http.server.exceptions.ExceptionHandler
 import jakarta.inject.Singleton
+import org.slf4j.LoggerFactory
 
 /**
  * BaseExceptionハンドラー
@@ -20,6 +21,7 @@ class BaseExceptionHandler : ExceptionHandler<BaseException, HttpResponse<ErrorR
      * BaseExceptionのハンドラー
      */
     override fun handle(request: HttpRequest<*>, exception: BaseException): HttpResponse<ErrorResponse> {
+        LoggerFactory.getLogger(BaseExceptionHandler::class.java).error(exception.message)
         val errorCode = exception.errorCode
         return HttpResponse.status<ErrorResponse?>(exception.status) //
             .body(ErrorResponse(errorCode.code, errorCode.message))
